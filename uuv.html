@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Fish-Inspired UUV — Dror Kosowsky-Sachs</title>
+<meta name="description" content="Summer 2026 undergraduate research: an untethered, fish-inspired UUV whose tail fin is driven by a 4-DOF parallel manipulator, with a machined aluminum build, a custom KiCad power PCB, and a ROS 2 control stack.">
+<link rel="canonical" href="https://droriks.github.io/uuv.html">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Fish-Inspired UUV — Dror Kosowsky-Sachs">
+<meta property="og:description" content="A fish-inspired UUV with a 4-DOF manipulator-driven tail fin, custom power PCB, and ROS 2 control stack.">
+<meta property="og:url" content="https://droriks.github.io/uuv.html">
+<meta property="og:image" content="https://droriks.github.io/images/UUV_air_setup.jpg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&amp;family=IBM+Plex+Sans:wght@400;600&amp;display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+<script>try{var t=localStorage.getItem("theme");if(t)document.documentElement.setAttribute("data-theme",t)}catch(e){}</script>
+<script src="theme.js" defer></script>
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+<div class="page">
+
+  <nav class="site-nav" aria-label="Site">
+    <div class="brand-row">
+      <a class="brand" href="index.html">Dror Kosowsky-Sachs</a>
+      <button class="theme-toggle" id="themeToggle" type="button" aria-label="Toggle light and dark mode" title="Toggle light / dark mode" hidden>
+        <svg class="icon-sun" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M1 12h2M21 12h2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+        <svg class="icon-moon" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path fill="currentColor" d="M20.7 14.6a8.9 8.9 0 01-11.3-11.3 1 1 0 00-1.3-1.2A10 10 0 1021.9 15.9a1 1 0 00-1.2-1.3z"/></svg>
+      </button>
+    </div>
+    <p class="brand-sub">Mechanical Engineering &amp; Robotics · University of Maryland</p>
+    <p class="nav-label">Pages</p>
+    <ul>
+      <li><a href="index.html">Home</a></li>
+      <li><a href="uuv.html" aria-current="page">Fish-Inspired UUV</a></li>
+      <li><a href="chess-board.html">Autonomous Chess Board</a></li>
+      <li><a href="maze-navigation.html">Autonomous Maze Navigation</a></li>
+      <li><a href="bike-lock.html">Biometric Bike Lock</a></li>
+      <li><a href="robotic-fish.html">Robotic Fish</a></li>
+    </ul>
+    <p class="nav-contact">
+      <a href="mailto:drorks@terpmail.umd.edu">drorks@terpmail.umd.edu</a><br>
+      <a href="https://www.linkedin.com/in/dror-kosowsky-sachs/" rel="noopener">LinkedIn</a><br>
+      <a href="images/Resume%20Dror%20Kosowsky-Sachs.pdf">Resume (PDF)</a>
+    </p>
+  </nav>
+
+  <main id="main">
+    <article>
+      <header>
+        <p class="eyebrow">Undergraduate research · UMD Hydrodynamics Lab · Summer 2026</p>
+        <h1>Fish-Inspired UUV</h1>
+        <ul class="skills" aria-label="Tools and skills">
+          <li>SolidWorks</li><li>CNC milling</li><li>Waterjet</li><li>KiCad</li><li>Raspberry Pi</li><li>ROS 2</li><li>Python</li>
+        </ul>
+      </header>
+
+      <figure class="lead">
+        <img src="images/UUV_air_setup.jpg" width="1400" height="1050" alt="Aluminum UUV hull on a lab bench with the servo-driven caudal fin extending toward a blue water tunnel">
+        <figcaption>The UUV hull and fin manipulator set up for in-air testing beside the water tunnel.</figcaption>
+      </figure>
+
+      <h2>Overview</h2>
+      <p>Today's underwater vehicles tend to be good at one of two things: fish-like caudal fins swim efficiently over long distances but struggle in tight spaces, while side-mounted propellers improve maneuverability at the cost of a lot of drag. This project aims for both. I designed and built an untethered, fish-inspired UUV whose tail fin is driven by a 4-DOF parallel manipulator, so the fin can sweep in any direction, roll, and change its distance from the body instead of just flapping side to side.</p>
+      <p>The manipulator moves the fin anywhere within a 50° cone with 180° of roll, and the fish has been tested underwater producing sine-wave gait motions. The work was advised by Professor Cecilia Huertas-Cerdeira and supported by UMD's ASPIRE Scholarship, and I presented it at the Summer Undergraduate Research Conference (SURC).</p>
+
+      <h2>Video</h2>
+      <p><a href="https://www.youtube.com/watch?v=Fh--ti05I-M" rel="noopener">Watch the fin manipulator in motion (YouTube)</a></p>
+
+      <h2>Manipulator</h2>
+      <p>Three servos on the fixed platform drive a 3RRS mechanism: each servo moves a limb with two revolute joints and a spherical joint that together tilt and raise the moving platform. A fourth servo on the moving platform rolls the fin. I chose 3RRS over a design with prismatic joints because it reaches the needed platform angles with fewer motors, and sized it to get wide sweep angles without widening the body (and its drag).</p>
+      <div class="figure-row">
+        <figure>
+          <img src="images/uuv_manipulator_labels.png" width="420" height="542" alt="CAD render of the manipulator with labels: tail, roll servo S4, moving platform, platform servos S1 to S3, and fixed platform" loading="lazy">
+          <figcaption>Main components of the manipulator.</figcaption>
+        </figure>
+        <figure>
+          <img src="images/uuv_manipulator_angles.png" width="451" height="487" alt="CAD render of the tilted manipulator platform annotated with the roll angle, the combined sweep angle theta plus phi, and the platform height" loading="lazy">
+          <figcaption>The four controlled variables: two sweep angles (θ, φ), roll, and height.</figcaption>
+        </figure>
+      </div>
+
+      <h2>Build and waterproofing</h2>
+      <p>I designed the manipulator in SolidWorks and machined it in aluminum in-house on a CNC mill, waterjet, and bandsaw, after an initial PLA prototype. Keeping the electronics dry took several layers:</p>
+      <ul>
+        <li>Gaskets under screwed-on end caps, so the hull can still be opened to swap batteries</li>
+        <li>A cast silicone sock sealing the space between the two platforms without restricting their motion</li>
+        <li>3M 4200 sealant on every wire and screw pass-through, an epoxied 3D-printed nose, and the LiPo battery in its own enclosure</li>
+      </ul>
+      <p>I submersion-tested each seal for up to an hour, the longest the fish will be underwater during testing. The sealed manipulator only passed about half the time at first; after further machining and tighter fastening, it passed consistently.</p>
+      <figure class="narrow">
+        <img src="images/UUV_manipulator.jpg" width="1050" height="1400" alt="Machined aluminum manipulator with three servos around a central column and a roll servo on the top plate" loading="lazy">
+        <figcaption>The machined aluminum manipulator: three platform servos around the base, with the roll servo on the moving platform.</figcaption>
+      </figure>
+
+      <h2>Electronics</h2>
+      <p>An 11.1&nbsp;V LiPo battery feeds a custom power board I designed in KiCad, with two DC-DC converters producing a 5&nbsp;V rail for the Raspberry Pi and a 7.4&nbsp;V rail for the servos, plus a fuse and reverse-polarity protection. The Pi commands the servos over I²C through a PCA9685 PWM driver.</p>
+      <figure>
+        <img src="images/uuv_pcb.png" width="587" height="382" alt="3D render of the power PCB with screw terminals for battery input and 5 V and 7.4 V outputs, an electrolytic capacitor, and two converter circuits" loading="lazy">
+        <figcaption>The power distribution PCB in KiCad.</figcaption>
+      </figure>
+
+      <h2>Software</h2>
+      <p>The Raspberry Pi runs a ROS 2 pipeline: a gait generator outputs sine-wave targets for the four variables, an inverse-kinematics node converts them into servo angles, and a servo node drives the hardware. The IK has no closed-form solution, so it's solved numerically. My first version (SymPy's <code>nsolve</code>) took about 700&nbsp;ms per step and made the motion jerky; switching to SciPy's <code>fsolve</code> on lambdified equations cut that to about 6&nbsp;ms and made it smooth.</p>
+      <p>On startup, a homing routine drives each platform limb down to a limit switch so the software knows where every limb is before anything moves. Launch files start either a sine-wave gait or a GUI that steers the platform with the mouse.</p>
+
+      <h2>Next steps</h2>
+      <ul>
+        <li><strong>Wider sweep:</strong> the off-the-shelf ball joints only allow about 30° of motion, the main limit on sweep angle. Custom joints could allow larger angles for more efficient swimming and sharper turns.</li>
+        <li><strong>Neutral buoyancy:</strong> the hull is large enough to need added, carefully placed weight so the fish sits neutrally and swims level.</li>
+        <li><strong>Tracking and closed-loop control:</strong> an onboard IMU plus an overhead camera, combined with state estimation, to track the fish's position and close the control loop.</li>
+        <li><strong>Testing the hypothesis:</strong> measuring turning radius and efficiency to see whether the 4-DOF fin really delivers both.</li>
+      </ul>
+    </article>
+
+    <footer class="page-footer">
+      <p>Dror Kosowsky-Sachs · <a href="mailto:drorks@terpmail.umd.edu">drorks@terpmail.umd.edu</a> · <a href="https://www.linkedin.com/in/dror-kosowsky-sachs/" rel="noopener">LinkedIn</a></p>
+    </footer>
+  </main>
+
+</div>
+</body>
+</html>

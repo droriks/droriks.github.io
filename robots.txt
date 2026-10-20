@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://droriks.github.io/sitemap.xml

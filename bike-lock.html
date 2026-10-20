@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Biometric Bike Lock — Dror Kosowsky-Sachs</title>
+<meta name="description" content="A 3D-printed bike lock that unlocks only for the right fingerprint and key fob: Arduino Uno, fingerprint sensor, RF receiver, worm-gear locking pin, and Bluetooth status reporting.">
+<link rel="canonical" href="https://droriks.github.io/bike-lock.html">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Biometric Bike Lock — Dror Kosowsky-Sachs">
+<meta property="og:description" content="A bike lock that only unlocks for the right fingerprint and the right key fob.">
+<meta property="og:url" content="https://droriks.github.io/bike-lock.html">
+<meta property="og:image" content="https://droriks.github.io/images/bike_wheel_photo2.jpg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&amp;family=IBM+Plex+Sans:wght@400;600&amp;display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+<script>try{var t=localStorage.getItem("theme");if(t)document.documentElement.setAttribute("data-theme",t)}catch(e){}</script>
+<script src="theme.js" defer></script>
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+<div class="page">
+
+  <nav class="site-nav" aria-label="Site">
+    <div class="brand-row">
+      <a class="brand" href="index.html">Dror Kosowsky-Sachs</a>
+      <button class="theme-toggle" id="themeToggle" type="button" aria-label="Toggle light and dark mode" title="Toggle light / dark mode" hidden>
+        <svg class="icon-sun" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M1 12h2M21 12h2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+        <svg class="icon-moon" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path fill="currentColor" d="M20.7 14.6a8.9 8.9 0 01-11.3-11.3 1 1 0 00-1.3-1.2A10 10 0 1021.9 15.9a1 1 0 00-1.2-1.3z"/></svg>
+      </button>
+    </div>
+    <p class="brand-sub">Mechanical Engineering &amp; Robotics · University of Maryland</p>
+    <p class="nav-label">Pages</p>
+    <ul>
+      <li><a href="index.html">Home</a></li>
+      <li><a href="uuv.html">Fish-Inspired UUV</a></li>
+      <li><a href="chess-board.html">Autonomous Chess Board</a></li>
+      <li><a href="maze-navigation.html">Autonomous Maze Navigation</a></li>
+      <li><a href="bike-lock.html" aria-current="page">Biometric Bike Lock</a></li>
+      <li><a href="robotic-fish.html">Robotic Fish</a></li>
+    </ul>
+    <p class="nav-contact">
+      <a href="mailto:drorks@terpmail.umd.edu">drorks@terpmail.umd.edu</a><br>
+      <a href="https://www.linkedin.com/in/dror-kosowsky-sachs/" rel="noopener">LinkedIn</a><br>
+      <a href="images/Resume%20Dror%20Kosowsky-Sachs.pdf">Resume (PDF)</a>
+    </p>
+  </nav>
+
+  <main id="main">
+    <article>
+      <header>
+        <p class="eyebrow">Mechatronics · Built</p>
+        <h1>Biometric Bike Lock</h1>
+        <ul class="skills" aria-label="Tools and skills">
+          <li>Arduino Uno</li><li>SolidWorks</li><li>Fingerprint sensor</li><li>Bluetooth</li><li>3D printing</li><li>Soldering</li>
+        </ul>
+      </header>
+
+      <figure class="lead">
+        <img src="images/bike_wheel_photo2.jpg" width="632" height="668" alt="The biometric bike lock mounted on a bicycle wheel">
+        <figcaption>The lock mounted on a bike wheel.</figcaption>
+      </figure>
+
+      <h2>Overview</h2>
+      <p>A bike lock that only unlocks for the right fingerprint and the right key fob. A DC motor driving a worm gear moves a locking pin through the wheel spokes, and the lock runs on an Arduino Uno that reports its state to a computer over Bluetooth.</p>
+
+      <h2>How it works</h2>
+      <p>The lock actuates when the correct fingerprint is sensed, followed by a button press. A fingerprint sensor reads the user; the lock then engages or releases once its receiver detects the correct frequency from a paired key fob.</p>
+      <p>A DC motor drives a worm gear that moves the locking pin through the wheel spokes.</p>
+
+      <h2>Design and build</h2>
+      <p>I designed the lock housing and mechanism in SolidWorks, 3D-printed all of the parts, and hand-soldered the sensor and actuator connections. The lock runs on an Arduino Uno, with its lock state communicated back to a computer over Bluetooth.</p>
+      <figure>
+        <img src="images/bike_cad.png" width="887" height="701" alt="SolidWorks model of the bike lock housing and mechanism" loading="lazy">
+        <figcaption>SolidWorks model of the lock.</figcaption>
+      </figure>
+      <div class="figure-row">
+        <figure>
+          <img src="images/bike_laptop_photo.jpg" width="707" height="665" alt="Open 3D-printed lock housing full of jumper wires and an Arduino, with a lit fingerprint sensor on the front and a hand holding a key fob, in front of a laptop running the Arduino IDE" loading="lazy">
+          <figcaption>Bench testing: the open housing with the fingerprint sensor and key fob, with the Arduino serial output on the laptop.</figcaption>
+        </figure>
+        <figure>
+          <img src="images/bike_wheel_photo1.jpg" width="406" height="562" alt="The bike lock on a bicycle wheel" loading="lazy">
+          <figcaption>The lock on the wheel.</figcaption>
+        </figure>
+      </div>
+
+      <h2>Results</h2>
+      <p>The lock worked reliably. The weak point was the Bluetooth module, which didn't connect to my laptop reliably; a better module would fix that.</p>
+
+      <h2>Taking it to a product</h2>
+      <ul>
+        <li><strong>Sturdier housing:</strong> replace the 3D-printed box with something more stable, like sheet metal or aluminum.</li>
+        <li><strong>Waterproofing:</strong> seal the housing to protect the electronics.</li>
+        <li><strong>Drop the fingerprint sensor:</strong> it's a cool feature, but it makes the lock much harder to use day to day.</li>
+      </ul>
+    </article>
+
+    <footer class="page-footer">
+      <p>Dror Kosowsky-Sachs · <a href="mailto:drorks@terpmail.umd.edu">drorks@terpmail.umd.edu</a> · <a href="https://www.linkedin.com/in/dror-kosowsky-sachs/" rel="noopener">LinkedIn</a></p>
+    </footer>
+  </main>
+
+</div>
+</body>
+</html>

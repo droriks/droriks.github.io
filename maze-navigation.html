@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Autonomous Maze Navigation (TurtleBot 4, ROS 2) — Dror Kosowsky-Sachs</title>
+<meta name="description" content="ENAE450 team project: a TurtleBot 4 escapes a maze using SLAM, AMCL, and Nav2 for the mapped race and a LiDAR right-hand wall follower written in ROS 2 Python for the unmapped race.">
+<link rel="canonical" href="https://droriks.github.io/maze-navigation.html">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Autonomous Maze Navigation — Dror Kosowsky-Sachs">
+<meta property="og:description" content="TurtleBot 4 maze escape with SLAM/Nav2 and a LiDAR wall-following state machine in ROS 2.">
+<meta property="og:url" content="https://droriks.github.io/maze-navigation.html">
+<meta property="og:image" content="https://droriks.github.io/images/maze_mapped_run.jpg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&amp;family=IBM+Plex+Sans:wght@400;600&amp;display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+<script>try{var t=localStorage.getItem("theme");if(t)document.documentElement.setAttribute("data-theme",t)}catch(e){}</script>
+<script src="theme.js" defer></script>
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+<div class="page">
+
+  <nav class="site-nav" aria-label="Site">
+    <div class="brand-row">
+      <a class="brand" href="index.html">Dror Kosowsky-Sachs</a>
+      <button class="theme-toggle" id="themeToggle" type="button" aria-label="Toggle light and dark mode" title="Toggle light / dark mode" hidden>
+        <svg class="icon-sun" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M1 12h2M21 12h2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+        <svg class="icon-moon" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path fill="currentColor" d="M20.7 14.6a8.9 8.9 0 01-11.3-11.3 1 1 0 00-1.3-1.2A10 10 0 1021.9 15.9a1 1 0 00-1.2-1.3z"/></svg>
+      </button>
+    </div>
+    <p class="brand-sub">Mechanical Engineering &amp; Robotics · University of Maryland</p>
+    <p class="nav-label">Pages</p>
+    <ul>
+      <li><a href="index.html">Home</a></li>
+      <li><a href="uuv.html">Fish-Inspired UUV</a></li>
+      <li><a href="chess-board.html">Autonomous Chess Board</a></li>
+      <li><a href="maze-navigation.html" aria-current="page">Autonomous Maze Navigation</a></li>
+      <li><a href="bike-lock.html">Biometric Bike Lock</a></li>
+      <li><a href="robotic-fish.html">Robotic Fish</a></li>
+    </ul>
+    <p class="nav-contact">
+      <a href="mailto:drorks@terpmail.umd.edu">drorks@terpmail.umd.edu</a><br>
+      <a href="https://www.linkedin.com/in/dror-kosowsky-sachs/" rel="noopener">LinkedIn</a><br>
+      <a href="images/Resume%20Dror%20Kosowsky-Sachs.pdf">Resume (PDF)</a>
+    </p>
+  </nav>
+
+  <main id="main">
+    <article>
+      <header>
+        <p class="eyebrow">ENAE450 Robotics Programming · Team project</p>
+        <h1>Autonomous Maze Navigation</h1>
+        <ul class="skills" aria-label="Tools and skills">
+          <li>ROS 2</li><li>Python</li><li>TurtleBot 4</li><li>LiDAR</li><li>SLAM</li><li>AMCL</li><li>Nav2</li><li>RViz</li><li>ros2 bag</li>
+        </ul>
+      </header>
+
+      <figure class="lead">
+        <img src="images/maze_mapped_run.jpg" width="1277" height="860" alt="TurtleBot 4 driving through a maze built from rows of fabric storage bins on a lab floor">
+        <figcaption>The TurtleBot 4 completing the mapped (Part 1) race.</figcaption>
+      </figure>
+
+      <h2>Overview</h2>
+      <p>A Spring 2026 team project for ENAE450 Robotics Programming, built with two classmates. A TurtleBot 4 had to escape a maze in two timed races — one where it could map the maze first, and one where it had to explore with no map — and finish each with a 180° turn at the exit. The three of us wrote and debugged the code together during lab sessions.</p>
+
+      <h2>Video</h2>
+      <p><a href="https://drive.google.com/file/d/1vhASTw5dsRv6oyDOSHrWN_JsCRCe1GQk/view?usp=sharing" rel="noopener">Watch the robot run (Google Drive)</a></p>
+
+      <h2>Mapped race: SLAM, AMCL, and Nav2</h2>
+      <p>We used the standard ROS 2 navigation stack on the TurtleBot 4:</p>
+      <ul>
+        <li><strong>SLAM</strong> (simultaneous localization and mapping) builds a map from LiDAR scans and odometry. We teleoperated the robot through the maze until the whole maze was mapped, then saved the map.</li>
+        <li><strong>AMCL</strong> (Adaptive Monte Carlo Localization) finds the robot on that map with a particle filter: it maintains many guesses (particles) of the robot's position and converges on the ones that match what the LiDAR sees. We seeded it with a pose estimate in RViz.</li>
+        <li><strong>Nav2</strong> plans and drives a path to a goal set in RViz, using a costmap that marks obstacles and inflates them by the robot's radius so the robot doesn't clip walls.</li>
+      </ul>
+      <figure class="narrow">
+        <img src="images/maze_sim_goal_seeking.png" width="1200" height="1200" alt="Plot of robot odometry on an occupancy-grid map: a short path, colored by elapsed time, from a start point to a goal while avoiding wall segments" loading="lazy">
+        <figcaption>A 2D TurtleBot 4 simulation of Nav2 goal seeking, representative of the mapped-race behavior (not the actual test maze). The robot plans an optimized route to the goal around obstacles, then performs the ending sequence: a 180° turn and logging “finished.”</figcaption>
+      </figure>
+
+      <h2>Unmapped race: LiDAR wall follower</h2>
+      <p>We wrote a ROS 2 node that reads LiDAR scans and publishes velocity commands to follow the right-hand wall at a tuned distance.</p>
+      <ul>
+        <li><strong>Heading estimation:</strong> comparing the distance straight to the right with the distance 45° ahead of right gives the robot's angle relative to the wall, which it corrects to stay parallel. Along the way we discovered the LiDAR is mounted rotated, so “forward” in its data is −π/2, not 0.</li>
+        <li><strong>State machine:</strong> the robot moves through three states: wall following, U-turn, and finished. Within wall following, checks run in priority order: avoid an imminent collision; turn left when blocked ahead, after confirming the front-left is clear; steer right to find a wall when there isn't one; otherwise, follow the wall.</li>
+        <li><strong>Exit detection:</strong> when nothing is in view ahead, the robot assumes it has left the maze and turns around. We narrowed that forward window to about 97° so the wall it was turning past wouldn't block detection.</li>
+      </ul>
+      <figure class="narrow">
+        <img src="images/maze_unmapped_odometry.png" width="1200" height="1200" alt="Plot of robot odometry paths, colored by elapsed time, from two unmapped-race attempts" loading="lazy">
+        <figcaption>Odometry from two overlaid attempts at the unmapped race. In the first, the robot navigated the maze but then followed the outside wall because of exit-recognition issues. In the second, it started at the maze exit and followed the outside wall until exit recognition triggered.</figcaption>
+      </figure>
+
+      <h2>Retrospective</h2>
+      <h3>What worked</h3>
+      <ul>
+        <li>The right-hand wall follower worked well and tracked the wall reliably early on.</li>
+        <li>The robot originally looked slightly ahead-right to anticipate turns, but that made it clip the wall on right turns, so we switched to looking directly right.</li>
+        <li>Left turns worked early, except in “alleyway” situations where the robot essentially has to turn around. Adding the front-left clearance check fixed this.</li>
+      </ul>
+      <h3>What didn't work</h3>
+      <ul>
+        <li>An earlier approach drove toward the most open space. It couldn't consistently tell where it had been, so it went in circles, treating the way back as a possible exit.</li>
+        <li>Without a launch file for the mapped race, launching SLAM, RViz, map saving, localization, and Nav2 by hand for every goal was slow and error-prone.</li>
+        <li>The unmapped end sequence only worked some of the time; it was hard to tell maze walls apart from unrelated objects near the maze opening.</li>
+        <li>We tried a “cleared exit counter” that required several consecutive empty readings before the U-turn. False positives inside the maze turned out to be rare, so it wasn't needed.</li>
+      </ul>
+      <h3>What we'd change</h3>
+      <ul>
+        <li>Write a launch file that runs each step of the mapped race in sequence, to save time and make the steps reliable and correctly ordered.</li>
+        <li>Improve goal-seeking for the unmapped race by ruling out problematic goals such as “back the way you came.”</li>
+        <li>Make exit detection distinguish objects that appear consistently over a longer window (walls) from ones that appear briefly (say, a chair leg visible from the exit).</li>
+      </ul>
+    </article>
+
+    <footer class="page-footer">
+      <p>Dror Kosowsky-Sachs · <a href="mailto:drorks@terpmail.umd.edu">drorks@terpmail.umd.edu</a> · <a href="https://www.linkedin.com/in/dror-kosowsky-sachs/" rel="noopener">LinkedIn</a></p>
+    </footer>
+  </main>
+
+</div>
+</body>
+</html>
