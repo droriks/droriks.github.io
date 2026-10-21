@@ -1,5 +1,5 @@
 # Biometric Bike Lock
-Dates: [dates]
+Dates: Built
 Role: [solo / team of N, my part was...]
 Tools & Skills: Arduino Uno, SolidWorks, Fingerprint sensor, Bluetooth, 3D printing, Soldering
 

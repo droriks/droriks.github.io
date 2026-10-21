@@ -1,5 +1,5 @@
 # Fish-Inspired UUV
-Dates: May 2026 - Present
+Dates: In progress
 Role: Undergraduate Researcher, UMD Hydrodynamics Lab, advised by Professor Cecilia Huertas-Cerdeira (ASPIRE Scholarship)
 Tools & Skills: SolidWorks, CNC milling, Waterjet, KiCad, Raspberry Pi, ROS 2, Python
 

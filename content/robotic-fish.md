@@ -1,5 +1,5 @@
 # Robotic Fish: Flipper Propulsion
-Dates: [dates]
+Dates: Built
 Role: [e.g. undergraduate researcher; solo / team, my part was...]
 Tools & Skills: 3D printing, Mold casting, Waterjet cutting, Lathe, Waterproofing, Layer jamming
 

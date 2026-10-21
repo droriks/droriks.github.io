@@ -1,5 +1,5 @@
 # Autonomous Maze Navigation
-Dates: Spring 2026 (final report May 15, 2026)
+Dates: Built
 Role: Team of 3 ([my part was...])
 Tools & Skills: ROS 2, Python, TurtleBot 4, LiDAR, SLAM, AMCL, Nav2, RViz, ros2 bag
 

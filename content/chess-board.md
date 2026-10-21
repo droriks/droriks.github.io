@@ -1,5 +1,5 @@
 # Autonomous Chess Board
-Dates: [dates]
+Dates: In progress
 Role: [solo / team of N, my part was...]
 Tools & Skills: Raspberry Pi, SolidWorks, Computer vision, 3D printing, Laser cutting, Laser engraving
 
